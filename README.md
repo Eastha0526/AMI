@@ -4,6 +4,11 @@
 - 프로젝트 목표 : AMI 데이터를 활용한 전력 사용량 예측 모델 제작
 
 ---
+![image](https://github.com/Eastha0526/AMI/assets/110336043/2afd85fa-e807-4b01-a368-f9746c07e813)
+</br>
+- 연구 흐름도
+
+---
 - AMI란?
   - AMI(Advanced Metering Infrastructure, )는 스마트 그리드 구축하에 전력량을 기록해주는 계량기
   - 스마트 그리드 하에 소비자와 공급자 모두 양방향으로 소통을 하며 전력량을 조절할 수 있다
@@ -17,10 +22,23 @@
  
 #### 사용 모델
 - XGBoost
+  - 트리 기반의 부스팅 모델로서 GBM 모델에서 병렬처리, 하드웨어 최적화 등의 개념을 도입하여 최적화한 모델이다.
+  - 하나의 결정 트리를 학습할 때 모든 임계값을 기준으로 분할하는 것이 아니라 데이터세트를 수많은 서브 데이터로 분할한 뒤 서브 데이터 내에서 최적값을 찾는 모델
+  - 일반적인 의사결정나무 혹은 랜덤포레스트보다 학습 정확도 및 희소한 데이터에도 과적합을 방지할 수 있는 점이 장점이다.
 - LightGBM
+  - XGBoost의 단점을 보완하는 방식으로 개발된 모델
+  - 데이터의 일부만으로 빠르게 정보 이득을 계산할 수 있으며 EFB를 통하여 특성의 수를 줄일 수 있다.
 - TabNet
+  - 기존의 딥러닝 모델의 경우 정형 데이터에 적합하지 않고 트리 기반의 모델들이 더 적합하기 때문에 "TABNET: Attentive Interpretable Tabular Learning" 논문에서 정형 데이터에도 적합한 모델 아키텍쳐를 제시하였고 특성 중요도 또한 확인할 수 있다.
+  - pytorch_tabnet 라이브러리를 활용하여 구현하였다.
 - LSTM
+  - 기존의 Simple RNN의 Long Term Dependency를 해결하기 위하여 고안된 모델
+  - Cell-state를 통하여 이전 타임 스텝의 hidden state를 계속 전달하며 Forget gate를 통하여 이전 Cell state에서의 정보를 기억하지 결정한다.
 - XAI
+  - XAI(eXplainable Artificail Intelligence)는 인공지능이 발전하고 있는 단계이며, 기존의 블랙박스 모델이라고 불리던 인공지능에 설명 능력을 부여함으로 신뢰성을 향상시킬 수 있다.
+  - SHAP와 함께 PDP Plot을 통하여 모델의 해석을 통해 전력 사용량을 통해 업종적 특성, 기상 조건등을 고려해야 함을 확인
+  - ![image](https://github.com/Eastha0526/AMI/assets/110336043/3ed0fa84-f7cc-4be7-b00e-55a2ec1b58f8)
+
 
 ---
 ## 결론
